@@ -26,7 +26,7 @@ class UserController extends Controller
     {
         $avatar = null;
         if ($request->hasFile('avatar')) {
-            $avatar = $request->avatar->getClientOriginalName();
+            $avatar = time() . "_" . $request->avatar->getClientOriginalName();
             $request->file('avatar')->storeAs('public', $avatar);
         }
 
@@ -52,7 +52,7 @@ class UserController extends Controller
     {
         $data = $request->all();
         if ($request->hasFile('avatar')) {
-            $avatar = $request->avatar->getClientOriginalName();
+            $avatar = time() . "_" . $request->avatar->getClientOriginalName();
             $request->file('avatar')->storeAs('public', $avatar);
             $image = User::find($id)->avatar;
             Storage::delete('public/'.$image);    

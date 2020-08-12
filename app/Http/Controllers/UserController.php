@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -26,7 +27,7 @@ class UserController extends Controller
         $avatar = null;
         if ($request->hasFile('avatar')) {
             $avatar = $request->avatar->getClientOriginalName();
-            $request->file('avatar')->storeAs('public/', $avatar);
+            $request->file('avatar')->storeAs('public', $avatar);
         }
 
         User::create([
@@ -52,7 +53,9 @@ class UserController extends Controller
         $data = $request->all();
         if ($request->hasFile('avatar')) {
             $avatar = $request->avatar->getClientOriginalName();
-            $request->file('avatar')->storeAs('public/', $avatar);           
+            $request->file('avatar')->storeAs('public', $avatar);
+            $image = User::find($id)->avatar;
+            Storage::delete('public/'.$image);    
             $data['avatar'] = $avatar;
         }
 

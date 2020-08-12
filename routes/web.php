@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'users', 'as' => 'users.'], function() {
+    Route::get('/', 'UserController@index')->name('index');
+    Route::get('create', 'UserController@create')->name('create');    
+    Route::post('/', 'UserController@store')->name('store');
+    Route::get('{user}/edit', 'UserController@edit')->name('edit');  
+    Route::put('{user}', 'UserController@update')->name('update');
+    Route::delete('{user}', 'UserController@destroy')->name('destroy');
 });

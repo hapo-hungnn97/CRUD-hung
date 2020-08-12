@@ -44,12 +44,19 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return view('page/edit', compact('user'));
+        return view('page.edit', compact('user'));
     }
 
     public function update(UserRequest $request, $id)
     {
-        User::find($id)->update($request->all());
+        $data = $request->all();
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->avatar->getClientOriginalName();
+            $request->file('avatar')->storeAs('public/', $avatar);           
+            $data['avatar'] = $avatar;
+        }
+
+        User::find($id)->update($data);
 
         return redirect()->route('users.index')->with('message', __('messages.success.update'));
     }

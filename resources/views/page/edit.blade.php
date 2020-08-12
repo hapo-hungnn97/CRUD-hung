@@ -1,8 +1,8 @@
 @extends('element.master')
-@section('title', 'add')
+@section('title', 'edit')
 @section('content')
 <h2 class="mt-5">Edit Student</h2>
-<form action="{{ Route('users.update', $user->id) }}" method="post">
+<form action="{{ Route('users.update', $user->id) }}" method="post" enctype="multipart/form-data">
     @method('PUT')
     @csrf
     <table class="table w-50 mt-4">
@@ -43,6 +43,16 @@
                 @if($errors->has('gender'))
                     <br>
                     <small class="text-danger">{{ $errors->first('gender') }}</small>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <th>Avatar</th>
+            <td>
+                <input type="file" class="form-control-file border" name="avatar">
+                @if($errors->has('avatar'))
+                    <br>
+                    <small class="text-danger">{{ $errors->first('avatar') }}</small>
                 @endif
             </td>
         </tr>

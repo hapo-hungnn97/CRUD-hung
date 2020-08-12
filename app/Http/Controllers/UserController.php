@@ -13,12 +13,12 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        return view('page/index', compact('users'));
+        return view('page.index', compact('users'));
     }
 
     public function create()
     {
-        return view('page/add');
+        return view('page.add');
     }
 
     public function store(UserRequest $request)
@@ -37,7 +37,7 @@ class UserController extends Controller
             'gender' => $request->gender
         ]);
 
-        return redirect()->route('users.index')->with('message','Tạo tài khoản thành công');
+        return redirect()->route('users.index')->with('message', __('messages.success.store'));
     }
 
     public function edit($id)
@@ -51,7 +51,7 @@ class UserController extends Controller
     {
         User::find($id)->update($request->all());
 
-        return redirect()->route('users.index')->with('message','Sửa thành công');
+        return redirect()->route('users.index')->with('message', __('messages.success.update'));
     }
 
     public function destroy($id)

@@ -2,7 +2,7 @@
 @section('title', 'add')
 @section('content')
 <h2 class="mt-5">Add Student</h2>
-<form action="{{Route('users.store')}}" method="post" enctype="multipart/form-data">
+<form action="{{ Route('users.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <table class="table w-50 mt-4">
         <tr>

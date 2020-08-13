@@ -26,7 +26,7 @@ class UserController extends Controller
     {
         $avatar = null;
         if ($request->hasFile('avatar')) {
-            $avatar = time() . "_" . $request->avatar->getClientOriginalName();
+            $avatar = uniqid(). "_" .$request->avatar->getClientOriginalName();
             $request->file('avatar')->storeAs('public', $avatar);
         }
 
@@ -52,7 +52,7 @@ class UserController extends Controller
     {
         $data = $request->all();
         if ($request->hasFile('avatar')) {
-            $avatar = time() . "_" . $request->avatar->getClientOriginalName();
+            $avatar = uniqid(). "_" .$request->avatar->getClientOriginalName();
             $request->file('avatar')->storeAs('public', $avatar);
             $image = User::find($id)->avatar;
             Storage::delete('public/'.$image);    
@@ -66,7 +66,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        User::destroy($id);
+        User::find($id)->delete();
 
         return redirect()->route('users.index');
     }
